@@ -12,7 +12,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_exec_log_c362 IMPLEMENTATION.
+CLASS ZCL_EXEC_LOG_C362 IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
@@ -131,5 +132,4 @@ CLASS zcl_exec_log_c362 IMPLEMENTATION.
 
 
   ENDMETHOD.
-
 ENDCLASS.
