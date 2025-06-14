@@ -138,7 +138,7 @@ CLASS zcl_internal_tables_log_c362 IMPLEMENTATION.
 *   add_flights_with_for( out ).
 *
 *   For nested
-*    nested_for( out ).
+    nested_for( out ).
 *
 *    Add multiple lines (select)
 *   add_multiple_lines( out ).
@@ -171,7 +171,7 @@ CLASS zcl_internal_tables_log_c362 IMPLEMENTATION.
 *    use_range_tables( out ).
 *
 *    Enumerations
-    use_enumerations( out ).
+*    use_enumerations( out ).
 
   ENDMETHOD.
 
@@ -493,6 +493,8 @@ CLASS zcl_internal_tables_log_c362 IMPLEMENTATION.
                                  flightdate = ls_flights_type-flight_date  )  ).
 
     ir_out->write( data = lt_final name = 'Nested For Table' ).
+
+    data(lv_variable) = 9.
 
   ENDMETHOD.
 
