@@ -63,9 +63,9 @@ CLASS zcl_performance_log_c362 IMPLEMENTATION.
                             price = '3000'
                             currency_code = 'COP' )  ).
 
-    out->write( 'Before sort' ).
-    out->write( lt_flights ).
-    out->write( lines( lt_flights ) ).
+*    out->write( 'Before sort' ).
+*    out->write( lt_flights ).
+*    out->write( lines( lt_flights ) ).
 
 *    " Sort with primary key
 *    SORT lt_flights.
@@ -86,12 +86,45 @@ CLASS zcl_performance_log_c362 IMPLEMENTATION.
 *    DELETE ADJACENT DUPLICATES FROM lt_flights.
 *    out->write( lines( lt_flights ) ).
 
-    SORT lt_flights BY carrier_id connection_id.
-    "DELETE ADJACENT DUPLICATES FROM lt_flights COMPARING carrier_id connection_id.
-    DELETE ADJACENT DUPLICATES FROM lt_flights COMPARING ALL FIELDS.
-    out->write( 'After sort' ).
-    out->write( lt_flights ).
-    out->write( lines( lt_flights ) ).
+*    SORT lt_flights BY carrier_id connection_id.
+*    "DELETE ADJACENT DUPLICATES FROM lt_flights COMPARING carrier_id connection_id.
+*    DELETE ADJACENT DUPLICATES FROM lt_flights COMPARING ALL FIELDS.
+*    out->write( 'After sort' ).
+*    out->write( lt_flights ).
+*    out->write( lines( lt_flights ) ).
+
+* REDUCE
+*    DATA: lt_flights_red TYPE TABLE OF /dmo/flight.
+*
+*    SELECT FROM /dmo/flight
+*    FIELDS *
+*    INTO TABLE @lt_flights_red.
+*
+*    DATA(lv_sum) = REDUCE i( INIT lv_result = 0
+*                             FOR ls_flight_red IN lt_flights_red
+*                             NEXT lv_result += ls_flight_red-price ).
+*
+*    out->write( |The price Summatory is: { lv_sum }.| ).
+
+* Internal tables access
+    SELECT FROM /dmo/airport
+    FIELDS *
+    INTO TABLE @DATA(lt_airport).
+
+    out->write( lt_airport ).
+
+    LOOP AT lt_airport ASSIGNING FIELD-SYMBOL(<fs_airport>).
+      <fs_airport>-country = 'CO'.
+    ENDLOOP.
+
+    out->write( lt_airport ).
+
+    LOOP AT lt_airport INTO DATA(ls_airport).
+      ls_airport-country = 'US'.
+      MODIFY lt_airport FROM ls_airport.
+    ENDLOOP.
+
+    out->write( lt_airport ).
 
   ENDMETHOD.
 
