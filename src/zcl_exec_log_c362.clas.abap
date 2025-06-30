@@ -151,11 +151,33 @@ CLASS zcl_exec_log_c362 IMPLEMENTATION.
 *   out->write( ls_employee4 ).
 
 
-    DATA(ls_employee5) = VALUE zemployee_2_c362( emp_id = 2
+    DATA(ls_employee5) = VALUE zemployee_2_c362( emp_id = 1
                                                  emp_name = 'Juana'
                                                  emp_last_name = 'Lopez'
                                                  emp_age = 35
-                                                 emp_sex = 'F' ).
+                                                 emp_sex = 'F'
+                                                 emp_salary = 3000
+                                                 currency = 'USD' ).
+
+    MODIFY zemployee_2_c362 FROM @ls_employee5.
+
+    ls_employee5 = VALUE zemployee_2_c362( emp_id = 2
+                                                 emp_name = 'Juan'
+                                                 emp_last_name = 'Lopez'
+                                                 emp_age = 23
+                                                 emp_sex = 'M'
+                                                 emp_salary = 2000
+                                                 currency = 'EUR' ).
+
+    MODIFY zemployee_2_c362 FROM @ls_employee5.
+
+    ls_employee5 = VALUE zemployee_2_c362( emp_id = 3
+                                                 emp_name = 'Pedro'
+                                                 emp_last_name = 'Lopez'
+                                                 emp_age = 56
+                                                 emp_sex = 'M'
+                                                 emp_salary = 1000
+                                                 currency = 'USD' ).
 
     MODIFY zemployee_2_c362 FROM @ls_employee5.
 
