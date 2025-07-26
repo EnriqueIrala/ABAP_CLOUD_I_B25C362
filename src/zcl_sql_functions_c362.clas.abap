@@ -26,32 +26,32 @@ CLASS zcl_sql_functions_c362 IMPLEMENTATION.
 *    currency  = 'USD' ) ).
 
 * Numeric Functions
-    DATA lv_decimal TYPE p LENGTH 5 DECIMALS 3 VALUE '17.826'.
-
-    SELECT SINGLE FROM zdemo_exp_c362
-    FIELDS id,
-           num1,
-           num2,
-           CAST( num1 AS FLTP ) / CAST( num2 AS FLTP ) AS ratio,
-           division( num1, num2, 2 ) AS division,
-           div( num1, num2 ) AS div,
-           mod( num1, num2 ) AS mod,
-           num1 + num2 + @lv_decimal AS sum,
-           abs( num1 + num2 ) AS abs,
-           ceil( @lv_decimal ) AS ceil,
-           floor( @lv_decimal ) AS floor,
-           round( @lv_decimal, 2 ) AS round
-
-           WHERE id = 'L'
-           INTO @DATA(ls_results).
-
-    IF  sy-subrc = 0.
-      out->write( ls_results ).
-    ENDIF.
+*    DATA lv_decimal TYPE p LENGTH 5 DECIMALS 3 VALUE '17.826'.
+*
+*    SELECT SINGLE FROM zdemo_exp_c362
+*    FIELDS id,
+*           num1,
+*           num2,
+*           CAST( num1 AS FLTP ) / CAST( num2 AS FLTP ) AS ratio,
+*           division( num1, num2, 2 ) AS division,
+*           div( num1, num2 ) AS div,
+*           mod( num1, num2 ) AS mod,
+*           num1 + num2 + @lv_decimal AS sum,
+*           abs( num1 + num2 ) AS abs,
+*           ceil( @lv_decimal ) AS ceil,
+*           floor( @lv_decimal ) AS floor,
+*           round( @lv_decimal, 2 ) AS round
+*
+*           WHERE id = 'L'
+*           INTO @DATA(ls_results).
+*
+*    IF  sy-subrc = 0.
+*      out->write( ls_results ).
+*    ENDIF.
 
 * String Functions
 
-*    SELECT SINGLE FROM zdemo_exp_lgl
+*    SELECT SINGLE FROM zdemo_exp_c362
 *        FIELDS id,
 *               char1,
 *               char2,
@@ -77,7 +77,7 @@ CLASS zcl_sql_functions_c362 IMPLEMENTATION.
 
 * Concat functions
 
-*    SELECT SINGLE FROM zdemo_exp_lgl
+*    SELECT SINGLE FROM zdemo_exp_c362
 *        FIELDS id,
 *               char1,
 *               char2,
@@ -94,36 +94,36 @@ CLASS zcl_sql_functions_c362 IMPLEMENTATION.
 
 * Function conversions
 
-*    CONSTANTS lc_currency type c LENGTH 3 VALUE 'EUR'.
-*
-*    SELECT SINGLE FROM zdemo_exp_lgl
-*          FIELDS id,
-*                 dec3 AS currentQuantity,
-*                 'MI' AS currentunit,
-*
-*                 unit_conversion( quantity = dec3,
-*                                  source_unit = unit`MI`,
-*                                  target_unit = unit`KM`,
-*                                  on_error = @sql_unit_conversion=>c_on_error-set_to_null ) AS ConvertedQuantity,
-*                 'KM' AS ConvertedUnit,
-*
-*
-*                 currency_conversion( amount = amount,
-*                                      source_currency = currency,
-*                                      target_currency = @lc_currency,
-*                                      exchange_rate_date = @( cl_abap_context_info=>get_system_date( ) ),
-*                                      round = 'X',
-*                                      on_error = @sql_currency_conversion=>c_on_error-set_to_null ) as convertedAmount,
-*
-*                 @lc_currency as convertedCurr
-*
-*
-*                 WHERE id = 'L'
-*                 INTO @DATA(ls_results).
-*
-*    IF  sy-subrc = 0.
-*      out->write( ls_results ).
-*    ENDIF.
+    CONSTANTS lc_currency type c LENGTH 3 VALUE 'EUR'.
+
+    SELECT SINGLE FROM zdemo_exp_c362
+          FIELDS id,
+                 dec3 AS currentQuantity,
+                 'MI' AS currentunit,
+
+                 unit_conversion( quantity = dec3,
+                                  source_unit = unit`MI`,
+                                  target_unit = unit`KM`,
+                                  on_error = @sql_unit_conversion=>c_on_error-set_to_null ) AS ConvertedQuantity,
+                 'KM' AS ConvertedUnit,
+
+
+                 currency_conversion( amount = amount,
+                                      source_currency = currency,
+                                      target_currency = @lc_currency,
+                                      exchange_rate_date = @( cl_abap_context_info=>get_system_date( ) ),
+                                      round = 'X',
+                                      on_error = @sql_currency_conversion=>c_on_error-set_to_null ) as convertedAmount,
+
+                 @lc_currency as convertedCurr
+
+
+                 WHERE id = 'L'
+                 INTO @DATA(ls_results).
+
+    IF  sy-subrc = 0.
+      out->write( ls_results ).
+    ENDIF.
 
   ENDMETHOD.
 
